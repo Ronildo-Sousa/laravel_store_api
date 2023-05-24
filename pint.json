@@ -28,6 +28,7 @@
         "declare_equal_normalize": {
             "space": "single"
         },
+	"declare_strict_types": true,
         "elseif": false,
         "encoding": true,
         "indentation_type": true,
