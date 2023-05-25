@@ -3,10 +3,14 @@
 declare(strict_types = 1);
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Event;
 
 use function Pest\Laravel\{assertDatabaseHas, postJson};
 
 it('should be able to register a user', function () {
+    Event::fake();
+
     postJson(route('api.auth.register'), [
         'first_name'            => 'John',
         'last_name'             => 'Doe',
@@ -23,6 +27,8 @@ it('should be able to register a user', function () {
         'email'    => 'john.doe@example.com',
         'is_admin' => false,
     ]);
+
+    Event::assertDispatched(Registered::class);
 });
 
 test('first name is required', function () {
