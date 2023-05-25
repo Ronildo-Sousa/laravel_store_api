@@ -32,5 +32,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
+        'is_admin'          => 'boolean',
     ];
+
+    public function handleTokens(): string
+    {
+        if ($this->tokens->count() > 0) {
+            $this->tokens()->delete();
+        }
+
+        return $this->createToken($this->email)->plainTextToken;
+    }
 }

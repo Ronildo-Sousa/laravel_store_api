@@ -14,7 +14,7 @@ Route::name('api.')->group(function () {
     });
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/email/verify', function () {
         return 'You should verify your email address.';
     })->name('verification.notice');

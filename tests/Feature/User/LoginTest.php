@@ -13,7 +13,9 @@ it('should be able to login', function () {
         'email'    => $user->email,
         'password' => 'password',
     ]))
-        ->assertNoContent();
+        ->assertOk()
+        ->assertJsonStructure(['user', 'token'])
+        ->assertSee($user->email, $user->tokens);
 
     assertAuthenticatedAs($user);
 });
