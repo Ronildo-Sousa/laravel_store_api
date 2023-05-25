@@ -10,19 +10,17 @@ Route::name('api.')->group(function () {
     Route::post('auth/register', RegisterController::class)->name('auth.register');
     Route::post('auth/login', LoginController::class)->name('auth.login');
 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        Route::get('/dashboard', function () {
+            return response()->json('this is a dashboard page');
+        })->name('dashboard');
     });
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/email/verify', function () {
-        return 'You should verify your email address.';
-    })->name('verification.notice');
-
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        dd($request->all());
         $request->fulfill();
 
-        return redirect('/home');
+        return response()->json('Thanks for verifying your email address');
     })->middleware('signed')->name('verification.verify');
 });
