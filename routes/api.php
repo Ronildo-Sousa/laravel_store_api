@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::name('api.')->group(function () {
     Route::post('auth/register', RegisterController::class)->name('auth.register');
     Route::post('auth/login', LoginController::class)->name('auth.login');
+    Route::post('auth/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('auth.forgot-password');
+    Route::post('auth/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('auth.reset-password');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['isAdmin'])->group(function () {
@@ -20,11 +22,6 @@ Route::name('api.')->group(function () {
         })->name('dashboard');
     });
 });
-
-Route::post('auth/forgot-password', [ResetPasswordController::class, 'sendLink'])->name('password.email');
-Route::get('/reset-password/{token}', function (string $token) {
-    dd($token);
-})->name('password.reset');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
