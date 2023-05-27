@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\Notifications\User;
 
@@ -34,9 +36,8 @@ class InviteAdminNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line(__('you have been invited to join ' . config('app.name')))
+            ->line(__('But first you must reset your password'));
     }
 
     /**
