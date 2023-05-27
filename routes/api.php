@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterAdminController, RegisterController};
+use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterAdminController, RegisterController, ResetPasswordController};
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +20,11 @@ Route::name('api.')->group(function () {
         })->name('dashboard');
     });
 });
+
+Route::post('auth/forgot-password', [ResetPasswordController::class, 'sendLink'])->name('password.email');
+Route::get('/reset-password/{token}', function (string $token) {
+    dd($token);
+})->name('password.reset');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
