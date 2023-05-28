@@ -15,7 +15,7 @@ class UpdateProfileController extends Controller
     {
         if ($request->email) {
             return response()->json([
-                'message', __('You are not authorized to perform this action.'),
+                'message' => __('You are not authorized to perform this action.'),
             ], Response::HTTP_UNAUTHORIZED);
         }
 
