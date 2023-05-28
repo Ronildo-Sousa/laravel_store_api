@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterAdminController, RegisterController, ResetPasswordController};
+use App\Http\Controllers\User\UpdateProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,7 @@ Route::name('api.')->group(function () {
     Route::post('auth/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('auth.reset-password');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        Route::put('/profile-update', UpdateProfileController::class)->name('profile-update');
         Route::middleware(['isAdmin'])->group(function () {
             Route::post('auth/invite', InviteAdminController::class)->name('auth.invite');
         });
