@@ -12,8 +12,16 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ListController extends Controller
 {
+    public const PER_PAGE = 10;
+
     public function __invoke(Request $request): AnonymousResourceCollection
     {
-        return CategoryResource::collection(Category::all());
+        $request->validate([
+            'per_page' => ['integer', 'min:1', 'max:100'],
+        ]);
+
+        return CategoryResource::collection(Category::query()->paginate(
+            $request->get('per_page') ?? self::PER_PAGE,
+        ));
     }
 }
