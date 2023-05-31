@@ -20,5 +20,6 @@ class Category extends Model
     public static function booted()
     {
         static::creating(fn (Category $category) => $category->slug = Str::slug($category->name));
+        static::updating(fn (Category $category) => $category->slug = Str::slug($category->name));
     }
 }

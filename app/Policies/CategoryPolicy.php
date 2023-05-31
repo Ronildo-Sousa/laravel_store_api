@@ -13,10 +13,10 @@ class CategoryPolicy
         return $user->is_admin;
     }
 
-    // public function update(User $user, Category $category): bool
-    // {
-    //     //
-    // }
+    public function update(User $user, Category $category): bool
+    {
+        return $user->is_admin;
+    }
 
     public function delete(User $user, Category $category): bool
     {
