@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterAdminController, RegisterController, ResetPasswordController};
-use App\Http\Controllers\Category\{ListController, ShowController, StoreController};
+use App\Http\Controllers\Category\{DeleteController, ListController, ShowController, StoreController};
 use App\Http\Controllers\User\UpdateProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +30,7 @@ Route::name('api.')->group(function () {
         })->name('dashboard');
 
         Route::post('/categories', StoreController::class)->name('categories.store');
+        Route::delete('/categories/{category:slug}', DeleteController::class)->name('categories.destroy');
     });
 });
 

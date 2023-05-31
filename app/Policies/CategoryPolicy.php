@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\Policies;
 
@@ -16,8 +18,8 @@ class CategoryPolicy
     //     //
     // }
 
-    // public function delete(User $user, Category $category): bool
-    // {
-    //     //
-    // }
+    public function delete(User $user, Category $category): bool
+    {
+        return $user->is_admin;
+    }
 }
