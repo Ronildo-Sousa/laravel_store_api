@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterAdminController, RegisterController, ResetPasswordController};
-use App\Http\Controllers\Category\ListController;
+use App\Http\Controllers\Category\{ListController, ShowController};
 use App\Http\Controllers\User\UpdateProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +17,7 @@ Route::name('api.')->group(function () {
     });
 
     Route::get('/categories', ListController::class)->name('categories.index');
+    Route::get('/categories/{category:slug}', ShowController::class)->name('categories.show');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/profile-update', UpdateProfileController::class)->name('profile-update');
