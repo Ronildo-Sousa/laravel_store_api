@@ -5,12 +5,20 @@ declare(strict_types = 1);
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\{JsonResponse, Request};
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
 {
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(StoreProductRequest $request): JsonResponse
     {
-        return response()->json();
+        $product = Product::query()->create($request->except('categories'));
+
+        return (new ProductResource($product))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 }
