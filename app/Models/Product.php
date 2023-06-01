@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\Product\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -25,6 +26,14 @@ class Product extends Model
     protected $casts = [
         'status' => StatusEnum::class,
     ];
+
+    /**
+     * @return MorphToMany<Category>
+     */
+    public function categories(): MorphToMany
+    {
+        return $this->morphToMany(Category::class, 'categorizable');
+    }
 
     public static function booted()
     {

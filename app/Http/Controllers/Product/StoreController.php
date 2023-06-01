@@ -16,6 +16,7 @@ class StoreController extends Controller
     public function __invoke(StoreProductRequest $request): JsonResponse
     {
         $product = Product::query()->create($request->except('categories'));
+        $product->categories()->attach($request->get('categories'));
 
         return (new ProductResource($product))
             ->response()
