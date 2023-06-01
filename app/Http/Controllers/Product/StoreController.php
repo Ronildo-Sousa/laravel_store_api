@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\{File, JsonResponse};
+use Illuminate\Http\{JsonResponse};
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
@@ -19,7 +20,7 @@ class StoreController extends Controller
         $product->categories()->attach($request->get('categories'));
 
         collect($request->file('images'))->each(function ($image) use ($product) {
-            $filename = time() . '_' . $image->getClientOriginalName();
+            $filename = time() . '_' . Str::remove(' ', $image->getClientOriginalName());
             $filepath = $image->storeAs("product/images/{$product->id}", $filename, 'public');
 
             $product->images()->create([
