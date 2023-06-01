@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\{File, JsonResponse};
 use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
@@ -18,8 +18,22 @@ class StoreController extends Controller
         $product = Product::query()->create($request->except('categories'));
         $product->categories()->attach($request->get('categories'));
 
-        return (new ProductResource($product))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
+        collect($request->file('images'))->each(function ($image) use ($product) {
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $filepath = $image->storeAs("product/images/{$product->id}", $filename, 'public');
+
+            $product->images()->create([
+                'name' => $filename,
+                'path' => $filepath,
+            ]);
+        });
+
+        $product = Product::query()->where('id', $product->id)
+            ->with(['categories:name,slug', 'images'])->first();
+
+        return response()->json([
+            'message' => __('Product created successfully'),
+            'product' => new ProductResource($product),
+        ], Response::HTTP_CREATED);
     }
 }

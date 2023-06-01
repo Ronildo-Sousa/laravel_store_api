@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\Http\Resources;
 
@@ -19,8 +21,10 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->name,
-            'slug' => $this->slug,
+            'name'       => $this->name,
+            'slug'       => $this->slug,
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'images'     => $this->whenLoaded('images'),
         ];
     }
 }

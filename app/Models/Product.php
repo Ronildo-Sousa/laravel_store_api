@@ -7,7 +7,7 @@ namespace App\Models;
 use App\Enums\Product\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\{MorphMany, MorphToMany};
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -26,6 +26,14 @@ class Product extends Model
     protected $casts = [
         'status' => StatusEnum::class,
     ];
+
+    /**
+     * @return MorphMany<Image>
+     */
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 
     /**
      * @return MorphToMany<Category>

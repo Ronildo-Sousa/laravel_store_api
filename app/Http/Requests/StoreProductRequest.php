@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\Http\Requests;
 
@@ -27,6 +29,8 @@ class StoreProductRequest extends FormRequest
             'price'       => ['required', 'numeric', 'min:1'],
             'stock'       => ['required', 'numeric', 'min:1'],
             'categories'  => ['required', 'array', 'exists:categories,id'],
+            'images'      => ['array'],
+            'images.*'    => ['image', 'mimes:jpg,jpeg,png'],
         ];
     }
 }
