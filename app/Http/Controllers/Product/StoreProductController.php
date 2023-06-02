@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorize('create', Product::class);
+    }
+
     public function __invoke(StoreProductRequest $request): JsonResponse
     {
         $product = Product::query()->create($request->except('categories'));

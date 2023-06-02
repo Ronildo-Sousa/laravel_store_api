@@ -6,7 +6,7 @@ use App\Models\{Category, Product, User};
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-use function Pest\Laravel\{actingAs, assertDatabaseHas, postJson};
+use function Pest\Laravel\{actingAs, assertDatabaseEmpty, assertDatabaseHas, postJson};
 use function PHPUnit\Framework\assertCount;
 
 it('should be able to create a product', function () {
@@ -44,4 +44,13 @@ it('should be able to create a product', function () {
         'category_id'      => $item->id,
         'categorizable_id' => $product->id,
     ]));
+});
+
+test('only admin can create a product', function () {
+    actingAs(User::factory()->create(['is_admin' => false]));
+
+    postJson(route('api.products.store'))
+        ->assertForbidden();
+
+    assertDatabaseEmpty('products');
 });
