@@ -1,13 +1,17 @@
-<?php declare(strict_types = 1);
+<?php
 
-use App\Models\Product;
+declare(strict_types = 1);
+
+use App\Models\{Category, Product};
 
 use function Pest\Laravel\getJson;
 
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
+    $categories     = Category::factory()->count(5)->create();
     $this->products = Product::factory()->count(10)->create();
+    $this->products->each(fn (Product $product) => $product->categories()->attach($categories->random(2)));
 });
 
 it('should list all products paginated', function () {

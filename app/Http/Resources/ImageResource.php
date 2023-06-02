@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\Http\Resources;
 
@@ -19,8 +21,7 @@ class ImageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->name,
-            'path' => $this->path,
+            'url' => $this->path,
         ];
     }
 }
