@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterController, ResetPasswordController};
 use App\Http\Controllers\Category\{DeleteCategoryController, ListCategoryController, ShowCategoryController, StoreCategoryController, UpdateCategoryController};
-use App\Http\Controllers\Product\{DeleteProductController, ListProductController, ShowProductController, StoreProductController};
+use App\Http\Controllers\Product\{DeleteProductController, ListProductController, ShowProductController, StoreProductController, UpdateProductController};
 use App\Http\Controllers\User\UpdateProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +38,7 @@ Route::name('api.')->group(function () {
         Route::delete('/categories/{category:slug}', DeleteCategoryController::class)->name('categories.destroy');
 
         Route::post('/products', StoreProductController::class)->name('products.store');
+        Route::put('/products/{product:slug}', UpdateProductController::class)->name('products.update');
         Route::delete('/products/{product:slug}', DeleteProductController::class)->name('products.destroy');
     });
 });
