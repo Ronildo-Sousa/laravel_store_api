@@ -12,7 +12,7 @@ use Illuminate\Http\{JsonResponse};
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreController extends Controller
+class StoreProductController extends Controller
 {
     public function __invoke(StoreProductRequest $request): JsonResponse
     {

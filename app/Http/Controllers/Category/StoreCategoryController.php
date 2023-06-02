@@ -11,7 +11,7 @@ use App\Models\Category;
 use Illuminate\Http\{JsonResponse};
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreController extends Controller
+class StoreCategoryController extends Controller
 {
     public function __invoke(CategoryRequest $request): JsonResponse
     {
