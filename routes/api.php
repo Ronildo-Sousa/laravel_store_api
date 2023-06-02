@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 use App\Http\Controllers\Auth\{InviteAdminController, LoginController, RegisterController, ResetPasswordController};
 use App\Http\Controllers\Category\{DeleteCategoryController, ListCategoryController, ShowCategoryController, StoreCategoryController, UpdateCategoryController};
-use App\Http\Controllers\Product\{DeleteProductController, ListProductController, StoreProductController};
+use App\Http\Controllers\Product\{DeleteProductController, ListProductController, ShowProductController, StoreProductController};
 use App\Http\Controllers\User\UpdateProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +21,7 @@ Route::name('api.')->group(function () {
     Route::get('/categories/{category:slug}', ShowCategoryController::class)->name('categories.show');
 
     Route::get('/products', ListProductController::class)->name('products.index');
+    Route::get('/products/{product:slug}', ShowProductController::class)->name('products.show');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/profile-update', UpdateProfileController::class)->name('profile-update');
