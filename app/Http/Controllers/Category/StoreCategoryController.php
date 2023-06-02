@@ -11,14 +11,12 @@ use App\Models\Category;
 use Illuminate\Http\{JsonResponse};
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreController extends Controller
+class StoreCategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorize('create', Category::class);
-    }
     public function __invoke(CategoryRequest $request): JsonResponse
     {
+        $this->authorize('create', Category::class);
+
         $category = Category::query()->create($request->only('name'));
 
         return response()->json(

@@ -10,7 +10,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class ListController extends Controller
+class ListCategoryController extends Controller
 {
     public const PER_PAGE = 10;
 

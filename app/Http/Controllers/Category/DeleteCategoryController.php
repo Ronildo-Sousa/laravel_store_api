@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\Http\Controllers\Category;
 
@@ -7,7 +9,7 @@ use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class DeleteController extends Controller
+class DeleteCategoryController extends Controller
 {
     public function __invoke(Category $category): JsonResponse
     {

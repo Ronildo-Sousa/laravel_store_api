@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Str;
 
 class Category extends Model
@@ -16,6 +17,14 @@ class Category extends Model
         'name',
         'slug',
     ];
+
+    /**
+     * @return MorphToMany<Product>
+     */
+    public function products(): MorphToMany
+    {
+        return $this->morphToMany(Product::class, 'categorizable');
+    }
 
     public static function booted()
     {
